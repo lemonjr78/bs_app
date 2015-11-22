@@ -10,14 +10,30 @@ app.controller('ViewWordController', function($scope) {
 	    {id: 5, name: 'Week 5'}
     ];
 
+    $scope.wordLists = [
+    	{wi : "John" , wr : "Doe" , wh : "Almar" , wk : "july" },
+    	{wi : "John" , wr : "Doe" , wh : "Almar" , wk : "july" },
+    	{wi : "John" , wr : "Doe" , wh : "Almar" , wk : "july" },
+    	{wi : "John" , wr : "Doe" , wh : "Almar" , wk : "july" },
+    	{wi : "John" , wr : "Doe" , wh : "Almar" , wk : "july" }
+    ];
+
     $scope.selectFilter = $scope.tagLists[0];
 
     $scope.tagChosenList = [];
 
-	$scope.removeElement = function(tagFilter){
-	    for(var i = $scope.tagLists.length - 1; i >= 0; i--){
-	        if($scope.tagLists[i].name == tagFilter.name){
-	            $scope.tagLists.splice(i,1);
+    $scope.checkWi = true;
+
+    $scope.checkWr = true;
+    
+    $scope.checkWh = false;
+    
+    $scope.checkWk = false;
+
+	$scope.removeElementByName = function(tagLists , tagFilter){
+	    for(var i = tagLists.length - 1; i >= 0; i--){
+	        if(tagLists[i].name == tagFilter.name){
+	            tagLists.splice(i,1);
 	        }
 	    }
 	}
@@ -30,10 +46,15 @@ app.controller('ViewWordController', function($scope) {
     	if(tagFilter!=$scope.tagLists[0]){
 	    	$scope.tagChosenList.push(tagFilter);
 
-	    	$scope.removeElement(tagFilter);
+	    	$scope.removeElementByName($scope.tagLists , tagFilter);
 	    	$scope.selectFilter = $scope.tagLists[0];
 	    	//$scope.tagList.splice(tagFilter.id , 1)
     	}
     };
+
+    $scope.removeFilter = function(tagFilter){
+    	$scope.removeElementByName($scope.tagChosenList , tagFilter);
+    	$scope.tagLists.push(tagFilter);
+    }
 
 });
